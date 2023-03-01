@@ -16,3 +16,6 @@ def compute_height(n, parents):
                 queue.append(child)
         height += 1
     return height
+n = int(input())
+parents = list(map(int, input().split()))
+print(compute_height(n, parents))
