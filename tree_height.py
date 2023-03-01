@@ -25,7 +25,8 @@ def main():
     elif text.startswith('F'):
         file = "./test/05"
         with open(file) as f:
-            text = f.readlines()
+            n = f.readline()
+            parents = n.read()
             print(compute_height(n, parents))
     else:
         print("Invalid input")
