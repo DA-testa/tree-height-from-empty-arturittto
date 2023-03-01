@@ -16,9 +16,12 @@ def compute_height(n, parents):
                 queue.append(child)
         height += 1
     return height
-n = int(input())
-parents = list(map(int, input().split()))
-print(compute_height(n, parents))
+try:
+    n = int(input())
+    parents = list(map(int, input().split()))
+    print(compute_height(n, parents))
+except ValueError as e:
+    print("Invalid input:", e)
 def main():
     text = input()
     if 'I' in text:
