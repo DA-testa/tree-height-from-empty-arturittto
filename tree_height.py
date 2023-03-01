@@ -23,7 +23,7 @@ def main():
         parents = list(map(int, input().split()))
         print(compute_height(n, parents))
     elif text.startswith('F'):
-        file = "./test/5"
+        file = "./test/05"
         with open(file) as f:
             text = f.read()
     else:
