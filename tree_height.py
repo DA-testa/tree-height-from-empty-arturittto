@@ -19,3 +19,18 @@ def compute_height(n, parents):
 n = int(input())
 parents = list(map(int, input().split()))
 print(compute_height(n, parents))
+def main():
+    text = input()
+    if 'I' in text:
+        text = input()
+    elif 'F' in text:
+        file = "./test/5"
+        with open(file) as f:
+            text = f.read()
+    mismatch = find_mismatch(text)
+    if not mismatch:
+        print("Success")
+    else:
+        print(mismatch)
+if __name__ == "__main__":
+    main()
