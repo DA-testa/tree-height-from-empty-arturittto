@@ -16,24 +16,25 @@ def compute_height(n, parents):
                 queue.append(child)
         height += 1
     return height
-try:
-    n = int(input())
-    parents = list(map(int, input().split()))
-    print(compute_height(n, parents))
-except ValueError as e:
-    print("Invalid input:", e)
+
+
 def main():
     text = input()
-    if 'I' in text:
-        text = input()
-    elif 'F' in text:
+    if text.startswith('I'):
+        n = int(input())
+        parents = list(map(int, input().split()))
+        print(compute_height(n, parents))
+    elif text.startswith('F'):
         file = "./test/5"
         with open(file) as f:
             text = f.read()
-    mismatch = find_mismatch(text)
-    if not mismatch:
-        print("Success")
+        mismatch = find_mismatch(text)
+        if not mismatch:
+            print("Success")
+        else:
+            print(mismatch)
     else:
-        print(mismatch)
+        print("Invalid input")
+
 if __name__ == "__main__":
     main()
