@@ -16,6 +16,8 @@ def compute_height(n, parents):
                 queue.append(child)
         height += 1
     return height
+
+
 def main():
     text = input()
     if text.startswith('I'):
@@ -25,10 +27,12 @@ def main():
     elif text.startswith('F'):
         file = "./test/05"
         with open(file) as f:
-            n = int(f.readline())
-            parents = f.read()
+            n = int(f.readline().strip())
+            parents = list(map(int, f.readline().strip().split()))
             print(compute_height(n, parents))
     else:
         print("Invalid input")
+
+
 if __name__ == "__main__":
     main()
