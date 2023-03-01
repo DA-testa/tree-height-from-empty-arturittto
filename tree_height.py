@@ -24,6 +24,7 @@ def main():
         print(compute_height(n, parents))
     elif text.startswith('F'):
         file = "./test/05"
+        print(compute_height(n, parents))
         with open(file) as f:
             text = f.read()
     else:
