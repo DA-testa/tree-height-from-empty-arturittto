@@ -16,8 +16,6 @@ def compute_height(n, parents):
                 queue.append(child)
         height += 1
     return height
-
-
 def main():
     text = input()
     if text.startswith('I'):
@@ -28,13 +26,7 @@ def main():
         file = "./test/5"
         with open(file) as f:
             text = f.read()
-        mismatch = find_mismatch(text)
-        if not mismatch:
-            print("Success")
-        else:
-            print(mismatch)
     else:
         print("Invalid input")
-
 if __name__ == "__main__":
     main()
