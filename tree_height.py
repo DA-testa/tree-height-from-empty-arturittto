@@ -1,38 +1,35 @@
-def compute_height(n, parents):
-    tree = [[] for i in range(n)]
-    root = -1
-    for i in range(n):
-        if parents[i] == -1:
-            root = i
-        else:
-            tree[parents[i]].append(i)
-    height = 0
-    queue = [root]
-    while len(queue) > 0:
-        level_size = len(queue)
-        for i in range(level_size):
-            node = queue.pop(0)
-            for child in tree[node]:
-                queue.append(child)
-        height += 1
-    return height
-
-
+def compute_height(node, height, visited):
+    visited.add(node)
+    max_height = height
+    for child in node:
+        if child not in visited:
+            child_height = compute_height(node[child], height + 1, visited)
+            max_height = max(max_height, child_height)
+    return max_height
 def main():
-    text = input()
-    if text.startswith('I'):
+    input_type = input("").strip()
+    n = 0
+    parents = []
+    if input_type == "I":
         n = int(input())
         parents = list(map(int, input().split()))
-        print(compute_height(n, parents))
-    elif text.startswith('F'):
-        file = "./test/05"
-        with open(file) as f:
-            n = int(f.readline().strip())
-            parents = list(map(int, f.readline().strip().split()))
-            print(compute_height(n, parents))
     else:
-        print("Invalid input")
-
-
-if __name__ == "__main__":
-    main()
+        file_path = input().strip()
+        while "a" in file_path:
+            file_path = input().strip()
+        with open(f"./test/{file_path}", "r") as f:
+            n = int(f.readline())
+            parents = list(map(int, f.readline().split()))
+    nodes = {i: [] for i in range(n)}
+    for i, parent in enumerate(parents):
+        if parent == -1:
+            root = i
+        else:
+            nodes[parent].append(i)
+    height = compute_height(nodes, 1, set([root]))
+    print(height)
+import sys
+import threading
+sys.setrecursionlimit(100000)
+threading.stack_size(2 ** 27)
+threading.Thread(target=main).start()
