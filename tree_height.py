@@ -1,35 +1,34 @@
-def compute_height(node, height, visited):
-    visited.add(node)
-    max_height = height
-    for child in node:
-        if child not in visited:
-            child_height = compute_height(node[child], height + 1, visited)
-            max_height = max(max_height, child_height)
-    return max_height
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.children = []
+def compute_tree_height(node):
+    if not node.children:
+        return 1
+    child_heights = [compute_tree_height(child) for child in node.children]
+    return max(child_heights) + 1
 def main():
-    input_type = input("").strip()
-    n = 0
-    parents = []
-    if input_type == "I":
-        n = int(input())
-        parents = list(map(int, input().split()))
+    input_format = input("")
+    num_nodes = 0
+    parent_indices = []
+    if "I" in input_format:
+        num_nodes = input("")
+        num_nodes = int(num_nodes.replace("\\r\\n", ""))
+        print(num_nodes)
+        parent_indices = list(map(int, input("").split()))
     else:
-        file_path = input().strip()
-        while "a" in file_path:
-            file_path = input().strip()
-        with open(f"./test/{file_path}", "r") as f:
-            n = int(f.readline())
-            parents = list(map(int, f.readline().split()))
-    nodes = {i: [] for i in range(n)}
-    for i, parent in enumerate(parents):
-        if parent == -1:
-            root = i
+        file_path = input("")
+        while "z" in file_path:
+            file_path = input("")
+        with open(f"./data/{file_path}", "r") as file:
+            num_nodes = int(file.readline())
+            parent_indices = list(map(int, file.readline().split()))
+    nodes = [TreeNode(i) for i in range(num_nodes)]
+    root = None
+    for i, parent_index in enumerate(parent_indices):
+        if parent_index == -1:
+            root = nodes[i]
         else:
-            nodes[parent].append(i)
-    height = compute_height(nodes, 1, set([root]))
-    print(height)
-import sys
-import threading
-sys.setrecursionlimit(100000)
-threading.stack_size(2 ** 27)
-threading.Thread(target=main).start()
+            nodes[parent_index].children.append(nodes[i])
+    tree_height = compute_tree_height(root)
+    print(tree_height)
