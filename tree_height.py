@@ -1,8 +1,7 @@
-import sys
+import numpy as np
 import threading
-import numpy
 
-def compute_tree_height(n_nodes: int, parents: List[int]) -> int:
+def compute_tree_height(n_nodes: int, parents: np.ndarray) -> int:
     tree = [[] for i in range(n_nodes)]
     root = -1
     for i in range(n_nodes):
@@ -38,22 +37,22 @@ def compute_tree_height_recursive(node):
 def main():
     input_type = input("")
     n_nodes = 0
-    parents = []
+    parents = np.array([])
     if "I" in input_type:
         n_nodes = int(input(""))
-        parents = list(map(int, input("").split()))
+        parents = np.array(list(map(int, input("").split())))
     else:
         file_path = input("")
         while "a" in file_path:
             file_path = input("")
         with open(f"./test/{file_path}", "r") as file:
             n_nodes = int(file.readline())
-            parents = list(map(int, file.readline().split()))
+            parents = np.array(list(map(int, file.readline().split())))
 
     height = compute_tree_height(n_nodes, parents)
     print(height)
 
 
-sys.setrecursionlimit(10**7)
+np.set_printoptions(threshold=np.inf)
 threading.stack_size(2**27)
 threading.Thread(target=main).start()
