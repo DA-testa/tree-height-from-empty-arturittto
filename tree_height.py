@@ -1,5 +1,6 @@
 import sys
 import threading
+import numpy
 
 class TreeNode:
     def __init__(self, val):
