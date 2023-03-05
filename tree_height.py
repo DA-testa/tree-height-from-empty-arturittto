@@ -1,5 +1,6 @@
-import numpy as np
+import numpy
 import threading
+import sys
 
 def compute_tree_height(n_nodes: int, parents: np.ndarray) -> int:
     tree = [[] for i in range(n_nodes)]
@@ -53,6 +54,7 @@ def main():
     print(height)
 
 
-np.set_printoptions(threshold=np.inf)
+numpy.set_printoptions(threshold=numpy.inf)
 threading.stack_size(2**27)
 threading.Thread(target=main).start()
+sys.setrecursionlimit(10**7)
