@@ -1,60 +1,47 @@
-import numpy
-import threading
 import sys
-
-def compute_tree_height(n_nodes: int, parents: np.ndarray) -> int:
-    tree = [[] for i in range(n_nodes)]
-    root = -1
-    for i in range(n_nodes):
-        if parents[i] == -1:
-            root = i
-        else:
-            tree[parents[i]].append(i)
-    height = 0
-    queue = [root]
-    while queue:
-        level_size = len(queue)
-        for i in range(level_size):
-            node = queue.pop(0)
-            for child in tree[node]:
-                queue.append(child)
-        height += 1
-    return height
-
+import threading
 
 class TreeNode:
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, val):
+        self.val = val
         self.children = []
 
 
-def compute_tree_height_recursive(node):
+def calculate_tree_height(node):
     if not node.children:
         return 1
-    heights = [compute_tree_height_recursive(child) for child in node.children]
+    heights = [calculate_tree_height(child) for child in node.children]
     return max(heights) + 1
 
 
 def main():
-    input_type = input("")
-    n_nodes = 0
-    parents = np.array([])
-    if "I" in input_type:
-        n_nodes = int(input(""))
-        parents = np.array(list(map(int, input("").split())))
+    input_method = input("")
+    num_nodes = 0
+    parents = []
+    if "I" in input_method:
+        num_nodes = input("")
+        num_nodes = int(num_nodes.replace("\\r\\n",""))
+        parents = list(map(int, input("").split()))
     else:
         file_path = input("")
         while "a" in file_path:
             file_path = input("")
-        with open(f"./test/{file_path}", "r") as file:
-            n_nodes = int(file.readline())
-            parents = np.array(list(map(int, file.readline().split())))
+        with open(f"./test/{file_path}", "r") as f:
+            num_nodes = int(f.readline())
+            parents = list(map(int, f.readline().split()))
 
-    height = compute_tree_height(n_nodes, parents)
-    print(height)
+    nodes = [TreeNode(i) for i in range(num_nodes)]
+    root = None
+    for i, parent in enumerate(parents):
+        if parent == -1:
+            root = nodes[i]
+        else:
+            nodes[parent].children.append(nodes[i])
 
+    tree_height = calculate_tree_height(root)
+    print(tree_height)
 
-numpy.set_printoptions(threshold=numpy.inf)
+sys.setrecursionlimit(10**7)
 threading.stack_size(2**27)
 threading.Thread(target=main).start()
-sys.setrecursionlimit(10**7)
+
