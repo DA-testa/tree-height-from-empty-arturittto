@@ -32,7 +32,7 @@ def main():
             print(compute_height(n, parents))
     else:
         print("Invalid input")
-
+#1
 
 if __name__ == "__main__":
     main()
