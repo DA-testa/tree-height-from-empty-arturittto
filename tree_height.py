@@ -1,6 +1,6 @@
 import sys
 import threading
-from typing import List
+import numpy
 
 def compute_tree_height(n_nodes: int, parents: List[int]) -> int:
     tree = [[] for i in range(n_nodes)]
